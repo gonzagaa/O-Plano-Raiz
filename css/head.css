@@ -1,0 +1,15 @@
+header h2 {
+    font-size: 3rem;
+    line-height: 1;
+    color: #fff;
+}
+
+header h2 span {
+
+}
+
+@media (min-width: 1080px) {
+    .wrapper header h2 {
+        font-size: 5rem;
+    }
+}
