@@ -74,7 +74,7 @@
 
   #home h2 {
     font-size: 1.4rem;
-    color: #efe8da;
+    color: #f3efe8;
     background: #57141D;
     padding: 1rem;
     border-radius: .5rem;
@@ -84,15 +84,15 @@
   }
 
    #home h3 {
-    color: #efe8da;
-    margin-top: 2rem;
+    color: #f3efe8;
+    margin-top: 4rem;
     font-size: 1.4rem;
    }
 
   #home p {
     font-size: 1.5rem;
     font-weight: 400;
-    color: #efe8da;
+    color: #f3efe8;
   }
 
   #home p span {
@@ -104,7 +104,7 @@
   }
 
 #home a button {
-  margin-top: 2rem;
+  margin-top: 1rem;
   font-size: 1.4rem;
   width: 100%;
 }
@@ -147,7 +147,9 @@
   header#home {
     justify-content: center;
     position: relative;
-    height: 100vh;
+    height: 90vh;
+
+    overflow: initial;
   }
 
     #home::after {
@@ -174,7 +176,7 @@
     top: 0;
     left: 0;
 
-    mask-image: none;
+    mask-image: linear-gradient(to bottom, #000 30%, transparent);
   }
 
     header#home .content {
@@ -220,6 +222,8 @@
       height: 100%;
       background: linear-gradient(to top, #020100c9, #00000000 50%);
       z-index: 2;
+
+      display: none;
     }
   
     header#home::before {
@@ -229,6 +233,8 @@
         height: 100%;
         background: linear-gradient(to top, #000, transparent 50%);
         z-index: 1;
+
+        display: none;
     }
 
     header#home .content {
@@ -250,13 +256,17 @@
       }
 
       header#home .content .text {
-        text-align: left;
+        text-align: center;
         display: flex;
-        align-items: start;
+        align-items: center;
         flex-direction: column;
 
         position: relative;
         z-index: 2;
+      }
+
+      header#home .content .text a {
+        width: max-content;
       }
     
       header#home .content h1 {
@@ -265,8 +275,8 @@
       }
 
       header#home .content p {
-        font-size: 2.5rem;
-        margin-top: 1rem;
+        font-size: 2.7rem;
+        margin-top: 0;
         font-weight: 400;
       }
 
@@ -274,7 +284,7 @@
       header#home .content a button {
         font-size: 2.2rem;
         width: max-content;
-        margin-top: 3rem;
+        margin-top: 1rem;
       }
 
       header#home .content h3 {

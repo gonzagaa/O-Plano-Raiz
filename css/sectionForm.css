@@ -18,6 +18,10 @@
     margin-bottom: 2rem;
 }
 
+#form .form {
+    width: 100%;
+}
+
 #form form {
     display: flex;
     flex-direction: column;
@@ -32,8 +36,6 @@
     border: 1px solid #ffffff32;
     padding: 2rem;
     border-radius: 1rem;
-
-    margin-top: 3rem;
 }
 
 #form .form .field {
@@ -49,8 +51,9 @@
     margin-top: 1rem;
     width: 100%;
 
-    background: #ded7ca;
-    border: 1px solid #ffffff1b;
+    background: #f3efe8;
+
+    border: 1px solid #c7bfb0;
     font-size: 1.6rem;
     padding: 1.5rem;
     border-radius: 1rem;
@@ -71,15 +74,86 @@
     aspect-ratio: 16/9;
 }
 
+#form .video h2 {
+    color: #f3efe8;
+    font-size: 1.4rem;
+
+    font-weight: 500;
+}
+
+#form .video h2.mobile {
+    margin-top: 1rem;
+}
+
+#form .video h2.desktop {
+    display: none;
+}
+
+#form .video h2 span {
+    font-weight: 700;
+}
+
+#form .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#form .box h2 {
+    color: #f3efe8;
+    font-weight: 700;
+    font-size: 1.7rem;
+
+    margin-bottom: 2rem;
+}
+
+#form .box h3 {
+    font-size: 1.4rem;
+    color: #f3efe8;
+    background: #57141D;
+    padding: 1rem;
+    border-radius: .5rem;
+    font-weight: 700;
+
+    width: max-content;
+
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
 @media (min-width: 1080px) {
     section#form {
         padding-top: 10rem;
         padding-bottom: 10rem;
     }
 
+    section#form .video h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    section#form .video h2.mobile {
+        display: none;
+    }
+
+    section#form .video h2.desktop {
+        display: inherit;
+    }
+
+    section#form .box h3 {
+        margin-top: 0;
+    }
+
+    section#form .box h2 {
+        font-size: 2.2rem;
+        margin-top: 0;
+    }
+
     section#form .content {
         display: grid;
         grid-template-columns: 1.6fr 1fr;
+        align-items: center;
         gap: 8rem;
     }
 
