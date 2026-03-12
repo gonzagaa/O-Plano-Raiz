@@ -35,7 +35,8 @@
     background: #efe8da;
     border: 1px solid #ffffff32;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 0 0 1rem 1rem;
+    margin-top: -1rem;
 }
 
 #form .form .field {
@@ -95,30 +96,30 @@
 }
 
 #form .box {
-    background: #57141D;
     margin-top: 3rem;
-    border-radius: 1rem;
-}
 
-#form .box .text {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    padding: 1.5rem;
 }
 
 #form .box h2 {
     color: #f3efe8;
+    background: #57141D;
+    padding: 1.5rem;
+    text-align: center;
     font-weight: 500;
     font-size: 1.6rem;
 
-    margin-bottom: 1rem;
+    border-radius: 1.5rem;
+
+    position: relative;
+    z-index: 1;
 }
 
 #form .box h3 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #f3efe8;
     font-weight: 700;
 
@@ -201,12 +202,9 @@
         margin-top: 0;
     }
 
-    section#form .box .text {
-        padding: 2rem;
-    }
-
     section#form .box h2 {
         font-size: 2rem;
+        padding: 2.5rem;
         margin-top: 0;
     }
 

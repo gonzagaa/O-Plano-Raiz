@@ -69,6 +69,28 @@
     <link rel="preload" href="https://b-vz-fa2c182e-ab9.tv.pandavideo.com.br/94f470b2-f81e-43c6-b21f-84e6263fc2d7/playlist.m3u8" as="fetch">
     <link rel="prerender" href="https://player-vz-fa2c182e-ab9.tv.pandavideo.com.br/embed/?v=94f470b2-f81e-43c6-b21f-84e6263fc2d7">
     <link rel="dns-prefetch" href="https://player-vz-fa2c182e-ab9.tv.pandavideo.com.br">
+
+    <!-- SEO Básico -->
+    <title>Evento Online - O Plano</title>
+    <meta name="title" content="Evento Online - O Plano" />
+    <meta name="description" content="Construa sua vida autossuficiente no campo, participe do evento online com Savitri Francis" />
+    <meta name="author" content="Gustavo Gonzaga" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://comunidaderaiz.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://comunidaderaiz.com/" />
+    <meta property="og:title" content="Evento Online - O Plano" />
+    <meta property="og:description" content="Construa sua vida autossuficiente no campo, participe do evento online com Savitri Francis" />
+    <meta property="og:image" content="https://comunidaderaiz.com/oplano/assets/banner.avif" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://comunidaderaiz.com/" />
+    <meta property="twitter:title" content="Evento Online - O Plano" />
+    <meta property="twitter:description" content="Construa sua vida autossuficiente no campo, participe do evento online com Savitri Francis" />
+    <meta property="twitter:image" content="https://comunidaderaiz.com/oplano/assets/banner.avif" />
 </head>
 <body id="body" class="smooth-scroll-wrapper">
     <header class="header" id="home">
@@ -85,7 +107,7 @@
                   <p>Construa sua vida <span>autossuficiente</span> no campo</p>
 
                   <h3>26/03/26 às 19h</h3>
-                  <a href="#plano"><button class="button">Inscreva-se agora</button></a>
+                  <a href="#form"><button class="button">Inscreva-se agora</button></a>
             </div>
           </div>
       </div>      
@@ -107,12 +129,12 @@
                 </div>
 
                 <div class="box">
-                    <div class="text">
                       <h3>26/03/26 às 19h</h3>
                       <h2>Preencha o formulário abaixo e inscreva-se gratuitamente no evento:</h2>
-                    </div>
                     <div class="form">
                         <form id="leadForm" class="lead-form" autocomplete="on">
+                                
+
                                 <div class="field">
                                 <label for="nome">Nome</label>
                                 <input
@@ -204,7 +226,7 @@
 
   const successPopup = document.getElementById("successPopup");
   const closeSuccessPopup = document.getElementById("closeSuccessPopup");
-  const successPopupButton = document.getElementById("successPopupButton");
+  
 
   function abrirPopupSucesso() {
     successPopup.classList.add("active");
@@ -217,7 +239,6 @@
   }
 
   closeSuccessPopup.addEventListener("click", fecharPopupSucesso);
-  successPopupButton.addEventListener("click", fecharPopupSucesso);
 
   successPopup.addEventListener("click", function (e) {
     if (e.target === successPopup) {
