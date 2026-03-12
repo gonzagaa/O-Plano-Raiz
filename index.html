@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/css/intlTelInput.css"
+/>
+
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.14/dist/lenis.css">
     <link defer href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link
@@ -77,9 +82,9 @@
                   <h2>EVENTO ONLINE E GRATUITO</h2>
                   <h1>O PLANO</h1>
 
-                  <p>Construa sua vida <span>auto-suficiente</span> no campo</p>
+                  <p>Construa sua vida <span>autossuficiente</span> no campo</p>
 
-                  <h3>26/03/26 às 19h, ao vivo!</h3>
+                  <h3>26/03/26 às 19h</h3>
                   <a href="#plano"><button class="button">Inscreva-se agora</button></a>
             </div>
           </div>
@@ -102,8 +107,10 @@
                 </div>
 
                 <div class="box">
-                    <h3>26/03/26 às 19h, ao vivo!</h3>
-                    <h2>Preencha o formulário abaixo e inscreva-se gratuitamente no evento:</h2>
+                    <div class="text">
+                      <h3>26/03/26 às 19h</h3>
+                      <h2>Preencha o formulário abaixo e inscreva-se gratuitamente no evento:</h2>
+                    </div>
                     <div class="form">
                         <form id="leadForm" class="lead-form" autocomplete="on">
                                 <div class="field">
@@ -132,17 +139,34 @@
                                 </div>
 
                                 <div class="field">
-                                    <label for="telefone">Telefone</label>
-                                    <input
-                                    id="telefone"
-                                    name="telefone"
-                                    type="tel"
-                                    placeholder="(11) 91234-5678"
-                                    inputmode="numeric"
-                                    autocomplete="tel"
-                                    required
-                                    maxlength="15"
-                                    />
+  <label for="telefone">Telefone</label>
+
+  <div class="phone-field">
+    <div class="country-code">
+      <select id="ddi" name="ddi" aria-label="Código do país">
+        <option value="+55" selected>🇧🇷 +55</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+351">🇵🇹 +351</option>
+        <option value="+34">🇪🇸 +34</option>
+        <option value="+44">🇬🇧 +44</option>
+        <option value="+49">🇩🇪 +49</option>
+        <option value="+33">🇫🇷 +33</option>
+        <option value="+39">🇮🇹 +39</option>
+        <option value="+54">🇦🇷 +54</option>
+        <option value="+56">🇨🇱 +56</option>
+      </select>
+    </div>
+
+    <input
+      id="telefone"
+      name="telefone"
+      type="tel"
+      placeholder="(11) 91234-5678"
+      inputmode="tel"
+      autocomplete="tel-national"
+      required
+    />
+  </div>
                                 </div>
 
                             <button type="submit" class="btn-submit button">Enviar agora</button>
@@ -153,18 +177,118 @@
         </div>
     </section>
 
+    <div id="successPopup" class="success-popup-overlay">
+  <div class="success-popup">
+    <button type="button" class="success-popup-close" id="closeSuccessPopup" aria-label="Fechar popup">
+      &times;
+    </button>
+
+    <div class="success-popup-icon">
+      ✓
+    </div>
+
+    <h3>Enviado com sucesso!</h3>
+    <p>
+      Recebemos seus dados e em breve entraremos em contato com você.
+    </p>
+
+  </div>
+    </div>
+
     <script>
   const form = document.getElementById("leadForm");
+  const btn = form.querySelector("button[type='submit']");
+
+  const ddiSelect = document.getElementById("ddi");
+  const telefoneInput = document.getElementById("telefone");
+
+  const successPopup = document.getElementById("successPopup");
+  const closeSuccessPopup = document.getElementById("closeSuccessPopup");
+  const successPopupButton = document.getElementById("successPopupButton");
+
+  function abrirPopupSucesso() {
+    successPopup.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function fecharPopupSucesso() {
+    successPopup.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  closeSuccessPopup.addEventListener("click", fecharPopupSucesso);
+  successPopupButton.addEventListener("click", fecharPopupSucesso);
+
+  successPopup.addEventListener("click", function (e) {
+    if (e.target === successPopup) {
+      fecharPopupSucesso();
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && successPopup.classList.contains("active")) {
+      fecharPopupSucesso();
+    }
+  });
+
+  function aplicarMascaraBrasil(valor) {
+    valor = valor.replace(/\D/g, "").slice(0, 11);
+
+    if (valor.length <= 10) {
+      return valor.replace(/^(\d{0,2})(\d{0,4})(\d{0,4}).*/, (_, a, b, c) => {
+        let resultado = "";
+        if (a) resultado += `(${a}`;
+        if (a.length === 2) resultado += `) `;
+        if (b) resultado += b;
+        if (c) resultado += `-${c}`;
+        return resultado;
+      });
+    }
+
+    return valor.replace(/^(\d{0,2})(\d{0,5})(\d{0,4}).*/, (_, a, b, c) => {
+      let resultado = "";
+      if (a) resultado += `(${a}`;
+      if (a.length === 2) resultado += `) `;
+      if (b) resultado += b;
+      if (c) resultado += `-${c}`;
+      return resultado;
+    });
+  }
+
+  telefoneInput.addEventListener("input", () => {
+    if (ddiSelect.value === "+55") {
+      telefoneInput.value = aplicarMascaraBrasil(telefoneInput.value);
+      telefoneInput.placeholder = "(11) 91234-5678";
+    } else {
+      telefoneInput.value = telefoneInput.value
+        .replace(/[^\d\s\-()]/g, "")
+        .slice(0, 20);
+      telefoneInput.placeholder = "Seu número";
+    }
+  });
+
+  ddiSelect.addEventListener("change", () => {
+    telefoneInput.value = "";
+    telefoneInput.placeholder =
+      ddiSelect.value === "+55" ? "(11) 91234-5678" : "Seu número";
+  });
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const btn = form.querySelector("button[type='submit']");
     const originalText = btn.textContent;
 
     const nome = document.getElementById("nome").value.trim();
     const email = document.getElementById("email").value.trim();
-    const telefone = document.getElementById("telefone").value.trim();
+    const ddi = ddiSelect.value.trim();
+    const telefone = telefoneInput.value.trim();
+
+    const telefoneCompleto = `${ddi} ${telefone}`;
+
+    if (!nome || !email || !telefone) {
+      alert("Preencha todos os campos obrigatórios.");
+      return;
+    }
 
     try {
       btn.disabled = true;
@@ -175,7 +299,11 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nome, email, telefone }),
+        body: JSON.stringify({
+          nome,
+          email,
+          telefone: telefoneCompleto,
+        }),
       });
 
       const data = await response.json();
@@ -184,18 +312,23 @@
         throw new Error(data.error || "Erro ao enviar formulário.");
       }
 
-      alert("Formulário enviado com sucesso!");
       form.reset();
+      ddiSelect.value = "+55";
+      telefoneInput.placeholder = "(11) 91234-5678";
+
+      abrirPopupSucesso();
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao enviar:", error);
       alert("Não foi possível enviar. Tente novamente.");
     } finally {
       btn.disabled = false;
       btn.textContent = originalText;
     }
   });
-    </script>
+</script>
 
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/utils.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script> 
     <script>
         // Initialize Lenis with options

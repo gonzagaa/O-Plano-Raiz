@@ -14,7 +14,6 @@
     transition: all 200ms ease-in-out;
   }
 
-
   #home .wrapper {
     position: relative;
     z-index: 3;
@@ -86,7 +85,7 @@
    #home h3 {
     color: #f3efe8;
     margin-top: 4rem;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
    }
 
   #home p {
@@ -288,7 +287,7 @@
       }
 
       header#home .content h3 {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
 }
 
