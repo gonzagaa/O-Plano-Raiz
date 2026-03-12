@@ -121,7 +121,7 @@
 #form .box h3 {
     font-size: 2.5rem;
     color: #f3efe8;
-    font-weight: 700;
+    font-weight: 500;
 
     width: max-content;
 
@@ -210,6 +210,7 @@
 
     section#form .box h3 {
         margin-top: .5rem;
+        font-size: 3rem;
     }
 
     section#form .content {
