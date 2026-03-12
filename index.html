@@ -201,21 +201,16 @@
 
     <div id="successPopup" class="success-popup-overlay">
   <div class="success-popup">
-    <button type="button" class="success-popup-close" id="closeSuccessPopup" aria-label="Fechar popup">
-      &times;
-    </button>
+    <div class="success-popup-icon">✓</div>
 
-    <div class="success-popup-icon">
-      ✓
-    </div>
-
-    <h3>Enviado com sucesso!</h3>
+    <h3>Obrigado pela sua inscrição!</h3>
     <p>
-      Recebemos seus dados e em breve entraremos em contato com você.
+      Aguarde, estamos te redirecionando...
     </p>
 
+    <div class="success-popup-loader" aria-label="Carregando"></div>
   </div>
-    </div>
+</div>
 
     <script>
   const form = document.getElementById("leadForm");
@@ -223,10 +218,10 @@
 
   const ddiSelect = document.getElementById("ddi");
   const telefoneInput = document.getElementById("telefone");
-
   const successPopup = document.getElementById("successPopup");
-  const closeSuccessPopup = document.getElementById("closeSuccessPopup");
-  
+
+  const REDIRECT_URL =
+    "https://www.instagram.com/savitrifrancis?upcoming_event_id=18568824931034390";
 
   function abrirPopupSucesso() {
     successPopup.classList.add("active");
@@ -237,20 +232,6 @@
     successPopup.classList.remove("active");
     document.body.style.overflow = "";
   }
-
-  closeSuccessPopup.addEventListener("click", fecharPopupSucesso);
-
-  successPopup.addEventListener("click", function (e) {
-    if (e.target === successPopup) {
-      fecharPopupSucesso();
-    }
-  });
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && successPopup.classList.contains("active")) {
-      fecharPopupSucesso();
-    }
-  });
 
   function aplicarMascaraBrasil(valor) {
     valor = valor.replace(/\D/g, "").slice(0, 11);
@@ -315,6 +296,9 @@
       btn.disabled = true;
       btn.textContent = "Enviando...";
 
+      // popup aparece imediatamente ao clicar
+      abrirPopupSucesso();
+
       const response = await fetch("https://raiz-formulario.vercel.app/api/activecampaign", {
         method: "POST",
         headers: {
@@ -337,9 +321,12 @@
       ddiSelect.value = "+55";
       telefoneInput.placeholder = "(11) 91234-5678";
 
-      abrirPopupSucesso();
+      setTimeout(() => {
+        window.location.href = REDIRECT_URL;
+      }, 1500);
     } catch (error) {
       console.error("Erro ao enviar:", error);
+      fecharPopupSucesso();
       alert("Não foi possível enviar. Tente novamente.");
     } finally {
       btn.disabled = false;
