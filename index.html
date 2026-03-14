@@ -201,16 +201,21 @@
 
     <div id="successPopup" class="success-popup-overlay">
   <div class="success-popup">
-    <div class="success-popup-icon">✓</div>
+    <button type="button" class="success-popup-close" id="closeSuccessPopup" aria-label="Fechar popup">
+      &times;
+    </button>
 
-    <h3>Obrigado pela sua inscrição!</h3>
+    <div class="success-popup-icon">
+      ✓
+    </div>
+
+    <h3>Enviado com sucesso!</h3>
     <p>
-      Aguarde, estamos te redirecionando...
+      Recebemos seus dados e em breve entraremos em contato com você.
     </p>
 
-    <div class="success-popup-loader" aria-label="Carregando"></div>
   </div>
-</div>
+    </div>
 
     <script>
   const form = document.getElementById("leadForm");
@@ -218,10 +223,10 @@
 
   const ddiSelect = document.getElementById("ddi");
   const telefoneInput = document.getElementById("telefone");
-  const successPopup = document.getElementById("successPopup");
 
-  const REDIRECT_URL =
-    "https://www.instagram.com/savitrifrancis?upcoming_event_id=18568824931034390";
+  const successPopup = document.getElementById("successPopup");
+  const closeSuccessPopup = document.getElementById("closeSuccessPopup");
+  
 
   function abrirPopupSucesso() {
     successPopup.classList.add("active");
@@ -232,6 +237,20 @@
     successPopup.classList.remove("active");
     document.body.style.overflow = "";
   }
+
+  closeSuccessPopup.addEventListener("click", fecharPopupSucesso);
+
+  successPopup.addEventListener("click", function (e) {
+    if (e.target === successPopup) {
+      fecharPopupSucesso();
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && successPopup.classList.contains("active")) {
+      fecharPopupSucesso();
+    }
+  });
 
   function aplicarMascaraBrasil(valor) {
     valor = valor.replace(/\D/g, "").slice(0, 11);
@@ -296,9 +315,6 @@
       btn.disabled = true;
       btn.textContent = "Enviando...";
 
-      // popup aparece imediatamente ao clicar
-      abrirPopupSucesso();
-
       const response = await fetch("https://raiz-formulario.vercel.app/api/activecampaign", {
         method: "POST",
         headers: {
@@ -321,12 +337,9 @@
       ddiSelect.value = "+55";
       telefoneInput.placeholder = "(11) 91234-5678";
 
-      setTimeout(() => {
-        window.location.href = REDIRECT_URL;
-      }, 1500);
+      abrirPopupSucesso();
     } catch (error) {
       console.error("Erro ao enviar:", error);
-      fecharPopupSucesso();
       alert("Não foi possível enviar. Tente novamente.");
     } finally {
       btn.disabled = false;
@@ -334,6 +347,7 @@
     }
   });
 </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/intlTelInput.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.0/build/js/utils.js"></script>
