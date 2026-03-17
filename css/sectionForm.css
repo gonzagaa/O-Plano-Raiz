@@ -243,3 +243,33 @@
         gap: 2rem;
     }
 }
+
+#ddiManual {
+  width: 10rem;
+  height: 5.4rem;
+  border-radius: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 1.5rem;
+  outline: none;
+  transition: 0.25s ease;
+  padding: 0 1.2rem;
+}
+
+#ddiManual:focus {
+  border-color: #000000;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#ddiManual::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 600px) {
+  #ddiManual {
+    width: 100%;
+  }
+}

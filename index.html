@@ -21,7 +21,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="./css/index.css?v=21232">
+    <link rel="stylesheet" href="./css/index.css?v=21qwdqwd232">
 
     <link rel="preload" href="./assets/IMG BG COMUNIDADE MOBILE.webp" as="image" type="image/webp">
 
@@ -176,8 +176,18 @@
         <option value="+39">🇮🇹 +39</option>
         <option value="+54">🇦🇷 +54</option>
         <option value="+56">🇨🇱 +56</option>
+        <option value="manual">Outro DDI</option>
       </select>
     </div>
+
+    <input
+      id="ddiManual"
+      name="ddiManual"
+      type="text"
+      placeholder="+000"
+      inputmode="numeric"
+      style="display: none;"
+    />
 
     <input
       id="telefone"
@@ -189,7 +199,7 @@
       required
     />
   </div>
-                                </div>
+</div>
 
                             <button type="submit" class="btn-submit button">Enviar agora</button>
                         </form>
@@ -217,16 +227,16 @@
   </div>
     </div>
 
-    <script>
+   <script>
   const form = document.getElementById("leadForm");
   const btn = form.querySelector("button[type='submit']");
 
   const ddiSelect = document.getElementById("ddi");
+  const ddiManualInput = document.getElementById("ddiManual");
   const telefoneInput = document.getElementById("telefone");
 
   const successPopup = document.getElementById("successPopup");
   const closeSuccessPopup = document.getElementById("closeSuccessPopup");
-  
 
   function abrirPopupSucesso() {
     successPopup.classList.add("active");
@@ -276,6 +286,36 @@
     });
   }
 
+  function atualizarCampoDDIManual() {
+    if (ddiSelect.value === "manual") {
+      ddiManualInput.style.display = "block";
+      ddiManualInput.required = true;
+      ddiManualInput.placeholder = "+000";
+      telefoneInput.placeholder = "Seu número";
+      telefoneInput.value = "";
+    } else {
+      ddiManualInput.style.display = "none";
+      ddiManualInput.required = false;
+      ddiManualInput.value = "";
+      telefoneInput.value = "";
+      telefoneInput.placeholder =
+        ddiSelect.value === "+55" ? "(11) 91234-5678" : "Seu número";
+    }
+  }
+
+  ddiSelect.addEventListener("change", atualizarCampoDDIManual);
+
+  ddiManualInput.addEventListener("input", () => {
+    ddiManualInput.value = ddiManualInput.value
+      .replace(/[^\d+]/g, "")
+      .replace(/(?!^)\+/g, "")
+      .slice(0, 5);
+
+    if (!ddiManualInput.value.startsWith("+") && ddiManualInput.value.length > 0) {
+      ddiManualInput.value = "+" + ddiManualInput.value.replace(/\+/g, "");
+    }
+  });
+
   telefoneInput.addEventListener("input", () => {
     if (ddiSelect.value === "+55") {
       telefoneInput.value = aplicarMascaraBrasil(telefoneInput.value);
@@ -288,11 +328,7 @@
     }
   });
 
-  ddiSelect.addEventListener("change", () => {
-    telefoneInput.value = "";
-    telefoneInput.placeholder =
-      ddiSelect.value === "+55" ? "(11) 91234-5678" : "Seu número";
-  });
+  atualizarCampoDDIManual();
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -301,12 +337,16 @@
 
     const nome = document.getElementById("nome").value.trim();
     const email = document.getElementById("email").value.trim();
-    const ddi = ddiSelect.value.trim();
     const telefone = telefoneInput.value.trim();
+
+    const ddi =
+      ddiSelect.value === "manual"
+        ? ddiManualInput.value.trim()
+        : ddiSelect.value.trim();
 
     const telefoneCompleto = `${ddi} ${telefone}`;
 
-    if (!nome || !email || !telefone) {
+    if (!nome || !email || !telefone || !ddi) {
       alert("Preencha todos os campos obrigatórios.");
       return;
     }
@@ -335,6 +375,8 @@
 
       form.reset();
       ddiSelect.value = "+55";
+      ddiManualInput.style.display = "none";
+      ddiManualInput.required = false;
       telefoneInput.placeholder = "(11) 91234-5678";
 
       abrirPopupSucesso();
